@@ -1,0 +1,211 @@
+int InfoGain(int size){ // will return attr. no. with max gain
+        //map attrs to int. Attr 1 to 6 are 0 to 5. In DT, arr size will keep decreasing.
+        double[] gains = new double[size];
+        if(size >= 6){ //SAFETY
+            Node[] forSafety = new Node[3];
+            double remainder = 0;
+            double entropyTemp = 0;
+            for(int i = 0; i < 3; i++){
+                forSafety[i] = new Node();
+                forSafety[i].setParent(this);
+            }
+            for(int i = 0; i < 3; i++){
+                for(int j = 0; j < examples.size(); j++){
+                    Example ex = examples.get(j);
+                    if(ex.getAttr6().getValue() == i){
+                        forSafety[i].addToExamples(ex);
+                        forSafety[i].setNumOfClassifications(forSafety[i].getNumOfClassifications() + 1);
+                        if(ex.getClassValue() == 0){
+                            forSafety[i].setClassUnacc(forSafety[i].classUnacc + 1);
+                        } else if(ex.getClassValue() == 1){
+                            forSafety[i].setClassAcc(forSafety[i].classAcc + 1);
+                        } else if(ex.getClassValue() == 2){
+                            forSafety[i].setClassGood(forSafety[i].classGood + 1);
+                        } else if(ex.getClassValue() == 3){
+                            forSafety[i].setClassVgood(forSafety[i].classVgood + 1);
+                        }
+                    }
+                }
+                entropyTemp = forSafety[i].Entropy();
+                remainder += (1.0 * forSafety[i].getNumOfClassifications()/this.getNumOfClassifications()) * entropyTemp;
+            }
+            gains[5] = entropy - remainder;
+        }
+        if(size >= 5){
+            Node[] forLug_boot = new Node[3];
+            double remainder = 0;
+            double entropyTemp = 0;
+            for(int i = 0; i < 3; i++){
+                forLug_boot[i] = new Node();
+                forLug_boot[i].setParent(this);
+            }
+            for(int i = 0; i < 3; i++){
+                for(int j = 0; j < examples.size(); j++){
+                    Example ex = examples.get(j);
+                    if(ex.getAttr5().getValue() == i){
+                        forLug_boot[i].addToExamples(ex);
+                        forLug_boot[i].setNumOfClassifications(forLug_boot[i].getNumOfClassifications() + 1);
+                        if(ex.getClassValue() == 0){
+                            forLug_boot[i].setClassUnacc(forLug_boot[i].classUnacc + 1);
+                        } else if(ex.getClassValue() == 1){
+                            forLug_boot[i].setClassAcc(forLug_boot[i].classAcc + 1);
+                        } else if(ex.getClassValue() == 2){
+                            forLug_boot[i].setClassGood(forLug_boot[i].classGood + 1);
+                        } else if(ex.getClassValue() == 3){
+                            forLug_boot[i].setClassVgood(forLug_boot[i].classVgood + 1);
+                        }
+                    }
+                }
+                entropyTemp = forLug_boot[i].Entropy();
+                remainder += (1.0 * forLug_boot[i].getNumOfClassifications()/this.getNumOfClassifications()) * entropyTemp;
+            }
+            gains[4] = entropy - remainder;
+        }
+        if(size >= 4){
+            Node[] forPersons = new Node[3];
+            double remainder = 0;
+            double entropyTemp = 0;
+            for(int i = 0; i < 3; i++){
+                forPersons[i] = new Node();
+                forPersons[i].setParent(this);
+            }
+            for(int i = 0; i < 3; i++){
+                for(int j = 0; j < examples.size(); j++){
+                    Example ex = examples.get(j);
+                    if(ex.getAttr4().getValue() == i){
+                        forPersons[i].addToExamples(ex);
+                        forPersons[i].setNumOfClassifications(forPersons[i].getNumOfClassifications() + 1);
+                        if(ex.getClassValue() == 0){
+                            forPersons[i].setClassUnacc(forPersons[i].classUnacc + 1);
+                        } else if(ex.getClassValue() == 1){
+                            forPersons[i].setClassAcc(forPersons[i].classAcc + 1);
+                        } else if(ex.getClassValue() == 2){
+                            forPersons[i].setClassGood(forPersons[i].classGood + 1);
+                        } else if(ex.getClassValue() == 3){
+                            forPersons[i].setClassVgood(forPersons[i].classVgood + 1);
+                        }
+                    }
+                }
+                entropyTemp = forPersons[i].Entropy();
+                remainder += (1.0 * forPersons[i].getNumOfClassifications()/this.getNumOfClassifications()) * entropyTemp;
+            }
+            gains[3] = entropy - remainder;
+        }
+        if(size >= 3){
+            Node[] forDoors = new Node[4];
+            double remainder = 0;
+            double entropyTemp = 0;
+            for(int i = 0; i < 4; i++){
+                forDoors[i] = new Node();
+                forDoors[i].setParent(this);
+            }
+            for(int i = 0; i < 4; i++){
+                for(int j = 0; j < examples.size(); j++){
+                    Example ex = examples.get(j);
+                    if(ex.getAttr3().getValue() == i){
+                        forDoors[i].addToExamples(ex);
+                        forDoors[i].setNumOfClassifications(forDoors[i].getNumOfClassifications() + 1);
+                        if(ex.getClassValue() == 0){
+                            forDoors[i].setClassUnacc(forDoors[i].classUnacc + 1);
+                        } else if(ex.getClassValue() == 1){
+                            forDoors[i].setClassAcc(forDoors[i].classAcc + 1);
+                        } else if(ex.getClassValue() == 2){
+                            forDoors[i].setClassGood(forDoors[i].classGood + 1);
+                        } else if(ex.getClassValue() == 3){
+                            forDoors[i].setClassVgood(forDoors[i].classVgood + 1);
+                        }
+                    }
+                }
+                entropyTemp = forDoors[i].Entropy();
+                remainder += (1.0 * forDoors[i].getNumOfClassifications()/this.getNumOfClassifications()) * entropyTemp;
+            }
+            gains[2] = entropy - remainder;
+        }
+        if(size >= 2){
+            Node[] forMaint = new Node[4];
+            double remainder = 0;
+            double entropyTemp = 0;
+            for(int i = 0; i < 4; i++){
+                forMaint[i] = new Node();
+                forMaint[i].setParent(this);
+            }
+            for(int i = 0; i < 4; i++){
+                for(int j = 0; j < examples.size(); j++){
+                    Example ex = examples.get(j);
+                    if(ex.getAttr2().getValue() == i){
+                        forMaint[i].addToExamples(ex);
+                        forMaint[i].setNumOfClassifications(forMaint[i].getNumOfClassifications() + 1);
+                        if(ex.getClassValue() == 0){
+                            forMaint[i].setClassUnacc(forMaint[i].classUnacc + 1);
+                        } else if(ex.getClassValue() == 1){
+                            forMaint[i].setClassAcc(forMaint[i].classAcc + 1);
+                        } else if(ex.getClassValue() == 2){
+                            forMaint[i].setClassGood(forMaint[i].classGood + 1);
+                        } else if(ex.getClassValue() == 3){
+                            forMaint[i].setClassVgood(forMaint[i].classVgood + 1);
+                        }
+                    }
+                }
+                entropyTemp = forMaint[i].Entropy();
+                remainder += (1.0 * forMaint[i].getNumOfClassifications()/this.getNumOfClassifications()) * entropyTemp;
+            }
+            gains[1] = entropy - remainder;
+        }
+        if(size >= 1){
+            Node[] forBuying = new Node[4];
+            double remainder = 0;
+            double entropyTemp = 0;
+            for(int i = 0; i < 4; i++){
+                forBuying[i] = new Node();
+                forBuying[i].setParent(this);
+            }
+            for(int i = 0; i < 4; i++){
+                for(int j = 0; j < examples.size(); j++){
+                    Example ex = examples.get(j);
+                    if(ex.getAttr1().getValue() == i){
+                        forBuying[i].addToExamples(ex);
+                        forBuying[i].setNumOfClassifications(forBuying[i].getExamples().size());
+                        if(ex.getClassValue() == 0){
+                            forBuying[i].setClassUnacc(forBuying[i].classUnacc + 1);
+                        } else if(ex.getClassValue() == 1){
+                            forBuying[i].setClassAcc(forBuying[i].classAcc + 1);
+                        } else if(ex.getClassValue() == 2){
+                            forBuying[i].setClassGood(forBuying[i].classGood + 1);
+                        } else if(ex.getClassValue() == 3){
+                            forBuying[i].setClassVgood(forBuying[i].classVgood + 1);
+                        }
+                    }
+                }
+                //print number of each class
+                entropyTemp = forBuying[i].Entropy();
+
+                /*System.out.println("Number of unacc classifications for buying " + i + ": " + forBuying[i].classUnacc);
+                System.out.println("Number of acc classifications for buying " + i + ": " + forBuying[i].classAcc);
+                System.out.println("Number of good classifications for buying " + i + ": " + forBuying[i].classGood);
+                System.out.println("Number of vgood classifications for buying " + i + ": " + forBuying[i].classVgood);
+                System.out.println("Entropy for buying " + i + ": " + entropyTemp);*/
+
+                if(entropyTemp != 0.0){
+                    remainder += (1.0 * forBuying[i].getNumOfClassifications() / this.getNumOfClassifications()) * entropyTemp;
+                }
+                //System.out.println("Remainder for buying " + i + ": " + remainder);
+            }
+            gains[0] = entropy - remainder;
+        }
+
+        //print gains to debug
+        for(int i = 0; i < size; i++){
+            System.out.println("Gain for attr " + i + ": " + gains[i]);
+        }
+
+        //get index for max value in gains:
+        double maxGain = Integer.MIN_VALUE;
+        int maxAttr = 0;
+        for(int i = 0; i < size; i++){
+            if(gains[i] >= maxGain){
+                maxGain = gains[i];
+                maxAttr = i;
+            }
+        }
+        return maxAttr;
+    }
